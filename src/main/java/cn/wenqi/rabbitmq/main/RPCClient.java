@@ -3,6 +3,8 @@ package cn.wenqi.rabbitmq.main;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
@@ -58,10 +60,11 @@ public class RPCClient {
     public static void main(String[] args) throws Exception {
         RPCClient fibonacciRpc = new RPCClient();
 
-        System.out.println(" [x] Requesting fib(30)");
-        String response = fibonacciRpc.call("30");
-        System.out.println(" [.] Got '" + response + "'");
-
+        System.out.print(new Date()+ "：");
+        Scanner scanner=new Scanner(System.in);
+        String message = scanner.next();
+        System.out.println("发送消息："+message);
+        fibonacciRpc.call(message);
         fibonacciRpc.close();
     }
 }

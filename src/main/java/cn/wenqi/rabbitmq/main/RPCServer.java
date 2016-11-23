@@ -2,7 +2,7 @@ package cn.wenqi.rabbitmq.main;
 
 import com.rabbitmq.client.*;
 
-import static cn.wenqi.rabbitmq.util.MessageUtil.fib;
+import java.util.Scanner;
 
 /**
  * @author wenqi
@@ -31,10 +31,13 @@ public class RPCServer {
                     .build();
 
             String message = new String(delivery.getBody());
-            int n = Integer.parseInt(message);
-
-            System.out.println(" [.] fib(" + message + ")");
-            String response = "" + fib(n);
+            System.out.println(props.getCorrelationId()+" 回复:"+message);
+            Scanner scanner=new Scanner(System.in);
+            String response=scanner.next();
+//            int n = Integer.parseInt(message);
+//
+//            System.out.println(" [.] fib(" + message + ")");
+//            String response = "" + fib(n);
 
             channel.basicPublish( "", props.getReplyTo(), replyProps, response.getBytes());
 
